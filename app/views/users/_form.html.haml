@@ -1,0 +1,14 @@
+= simple_form_for (@user ||= User.new) do |f|
+  = f.input :name
+  = f.input :email
+  = f.input :password
+  = f.input :password_confirmation, required: true
+  = f.error :password_digest
+  = f.input :organization, label: 'Your company or university'
+  = f.input :knowledge_level, collection: User::KNOWLEDGE_LEVELS, label: '3D Knowledge Level', label_method: lambda { |a| a.titleize }
+  = f.input :photo
+  - if @user.persisted?
+    = f.input :receive_notifications, label: 'Receive email notifications?'
+  = button_tag(type: 'submit', class: 'btn btn-success pull-right with-icon') do
+    = @user.new_record? ? 'Sign Up' : 'Update'
+    %i.fa.fa-angle-double-right

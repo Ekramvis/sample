@@ -1,0 +1,66 @@
+source 'https://rubygems.org'
+
+gem 'rails', '4.0.2'
+gem 'sass-rails', '~> 4.0.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'jquery-rails'
+gem 'bcrypt-ruby'
+gem 'thin'
+gem 'haml-rails'
+gem 'simple_form'
+gem 'friendly_id', '~> 5.0.0'
+gem 'inherited_resources'
+gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git'
+gem 'paperclip-meta'
+gem 'quiet_assets'
+gem 'airbrake'
+gem 'aws-sdk'
+gem 'private_pub'
+gem 'faye', '1.0.0'
+gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sidekiq'
+gem 'towncrier', :git => 'https://github.com/davidlesches/towncrier'
+gem 'date_validator'
+gem 'izzy'
+gem 'sir-trevor-rails', github: 'madebymany/sir-trevor-rails', branch: 'v4'
+gem 'kaminari'
+gem 'redis'
+gem 'searchkick', github: 'ankane/searchkick', branch: 'elasticsearch-1.2'
+gem 'money-rails'
+gem 'unicorn'
+gem 'capistrano', '2.15.5'
+gem 'geocoder'
+gem 'jquery-ui-rails'
+gem 'gon'
+gem 'whenever', :require => false
+gem 'backup'
+gem 'omniauth'
+gem 'omniauth-facebook', '1.4.0'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-linkedin'
+
+group :development do
+  gem 'letter_opener'
+end
+
+group :development, :test do
+  gem 'sqlite3'
+  gem 'pry-rails'
+  gem 'pry-nav'
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'ffaker'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'email_spec'
+  gem 'spork-rails'
+  gem 'poltergeist'
+end
+
+group :production do
+  gem 'pg'
+end

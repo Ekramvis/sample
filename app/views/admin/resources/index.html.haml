@@ -1,0 +1,22 @@
+%h1 Resources
+= link_to 'New', new_admin_resource_path, :class => 'btn btn-info pull-right'
+.clear
+
+%table
+  %thead
+    %tr
+      %th= sortable 'date_posted', 'Published On'
+      %th= sortable 'title'
+      %th Author
+      %th Actions
+
+  %tbody
+    - @resources.each do |resource|
+      %tr
+        %td= resource.date_posted.to_s(:concise)
+        %td= resource.title
+        %td= resource.user.name
+        %td
+          = link_to 'Open', admin_resource_path(resource), :class => 'btn btn-table btn-mini'
+
+= paginate @resources

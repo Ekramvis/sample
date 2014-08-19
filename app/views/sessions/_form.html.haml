@@ -1,0 +1,37 @@
+.row
+  .columns.small-12
+    %h1 Login
+
+.row
+  .columns.small-12.medium-8.large-6.medium-centered.large-centered
+    .clear.spacer_20
+    .gmail-login
+      = link_to '/auth/google_oauth2' do
+        %button.btn.btn-gmail GMAIL
+
+    .fab-login
+      = link_to '/auth/facebook' do
+        %button.btn.btn-fab FACEBOOK
+
+    .linkedin-login
+      = link_to '/auth/linkedin' do
+        %button.btn.btn-linkedin LINKEDIN
+    .clear.spacer_20
+
+    .or-divide - or -
+    = simple_form_for :session, url: sessions_path do |f|
+      = f.input :email
+      = f.input :password
+      = button_tag(type: 'submit', class: 'btn btn-success pull-right with-icon') do
+        Login
+        %i.fa.fa-angle-double-right
+
+    .clear.spacer_20
+
+    %p.center.small
+      or
+      = link_to 'sign up', new_user_path
+      to join.
+
+    %p.center.small
+      = link_to 'Forgot your password?', new_password_reset_path

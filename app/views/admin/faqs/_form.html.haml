@@ -1,0 +1,8 @@
+= simple_form_for [ :admin, @faq ] do |f|
+  .row
+    .columns.small-12
+      = f.input :question
+      = f.input :answer
+      = button_tag(type: 'submit', class: 'btn btn-success pull-right with-icon') do
+        = @faq.new_record? ? 'Create' : 'Update'
+        %i.fa.fa-angle-double-right

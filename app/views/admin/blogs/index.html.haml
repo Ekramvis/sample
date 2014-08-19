@@ -1,0 +1,22 @@
+%h1 Blogs
+= link_to 'New', new_admin_blog_path, :class => 'btn btn-info pull-right'
+.clear
+
+%table
+  %thead
+    %tr
+      %th= sortable 'date_posted', 'Published On'
+      %th= sortable 'title'
+      %th Author
+      %th Actions
+
+  %tbody
+    - @blogs.each do |blog|
+      %tr
+        %td= blog.date_posted.to_s(:concise)
+        %td= blog.title
+        %td= blog.user.name
+        %td
+          = link_to 'Open', admin_blog_path(blog), :class => 'btn btn-table btn-mini'
+
+= paginate @blogs

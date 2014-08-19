@@ -1,0 +1,14 @@
+%h1 FAQ
+= link_to 'Edit', edit_admin_faq_path(@faq), :class => 'btn btn-gray pull-right'
+
+.key-value
+  .key Order
+  .value= @faq.position
+
+.key-value
+  .key Question
+  .value= @faq.question
+
+.key-value
+  .key Answer
+  .value= simple_format @faq.answer

@@ -1,0 +1,9 @@
+- title @resource
+
+.row
+  .columns.small-12
+    %h1= @resource
+
+    = render @posts
+    .clear
+    = paginate @posts

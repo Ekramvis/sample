@@ -1,0 +1,63 @@
+%h1 Poster
+= link_to 'Edit', edit_admin_poster_path(@poster), :class => 'btn btn-gray pull-right'
+
+.key-value
+  .key Title
+  .value= @poster.title
+
+.key-value
+  .key Thumbnail
+  .value
+    - if @poster.thumbnail.present?
+      = image_tag @poster.thumbnail.url(:thumb)
+    - else
+      Not Supplied
+
+.key-value
+  .key Attachment
+  .value
+    - if @poster.file_attachment.blank?
+      none
+    - else
+      .row 
+        .columns.small-3.medium-3.admin-view-attachment
+          = link_to @poster.file_attachment.attachment.url do
+            = image_tag @poster.file_attachment.doc_image, size: '75x75' 
+          .file-title= @poster.file_attachment.title
+      .spacer_10
+
+.key-value
+  .key Poster Sections
+  .value
+    - if @poster.poster_sections.blank?
+      none
+    - else
+      - @poster.poster_sections.each do |section|
+        %hr
+        .key-value
+          .key Title
+          .value 
+            = section.title
+        .key-value
+          .key Description
+          .value   
+            = section.description 
+        - if section.video_link.present?
+          .key-value
+            .key Video Link
+            .value   
+              = section.video_link
+        - if section.page_link.present?
+          .key-value
+            .key Page Link
+            .value   
+              = section.page_link
+        .key-value
+          .key Image
+          .value
+            = image_tag section.image.url(:thumb)
+        .spacer_10
+
+.key-value
+  .key Public Page
+  .value= link_to 'Public Page', poster_path(@poster)

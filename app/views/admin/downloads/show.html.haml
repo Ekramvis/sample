@@ -1,0 +1,15 @@
+%h1 Download
+= link_to 'Edit', edit_admin_download_path(@download), :class => 'btn btn-gray pull-right'
+
+.key-value
+  .key Attachment
+  .value
+    - if @download.file_attachment.blank?
+      none
+    - else
+      .row 
+        .columns.small-3.medium-3.admin-view-attachment
+          = link_to @download.file_attachment.attachment.url do
+            = image_tag @download.file_attachment.doc_image, size: '75x75' 
+          .file-title= @download.file_attachment.title
+      .spacer_10

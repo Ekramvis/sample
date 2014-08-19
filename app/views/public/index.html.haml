@@ -1,0 +1,115 @@
+.row
+  .columns.small-12
+    #layerslider{ style: 'width: 1000px; height: 400px;' }
+      .ls-slide{ 'data-ls' => 'slidedelay: 7000;timeshift:1000;' }
+        .ls-l.slide-title{ style: 'top: 270px; left: 0px; z-index: 12;', 'data-ls' => 'offsetxin:0;durationin:3000;offsetyin:top;easingin:easeOutElastic;rotatexin:90;transformoriginin:50% bottom 0;offsetxout:0;offsetyout:200;rotatexout:90;transformoriginout:50% bottom 0;' }= link_to '3D Medicine', '/categories/medical'
+        = image_tag '3dmedbanner.png', :class => 'ls-l', style: 'top: 0px; left: 0px; z-index: 2', 'data-ls' => 'offsetxin:right;delayin:0'
+
+      - Slide.order('position asc').each do |slide|
+        .ls-slide{ 'data-ls' => "slidedelay: #{slide.duration}; timeshift: #{slide.timeshift};" }
+          .ls-l.slide-title{ style: 'top: 250px; left: 0px; z-index: 12;', 'data-ls' => 'offsetxin:0;durationin:3000;offsetyin:top;easingin:easeOutElastic;rotatexin:90;transformoriginin:50% bottom 0;offsetxout:0;offsetyout:200;rotatexout:90;transformoriginout:50% bottom 0;' }= link_to slide.title, slide.link_url
+          - if slide.description.present?
+            .ls-l.slide-description{ style: 'top: 310px; left: 0px; z-index: 10; text-align: center;color:white;background:#2c343b;padding: 20px', 'data-ls' => 'offsetxin:0;' }= slide.description
+          = image_tag slide.background.url(:large), :class => 'ls-l', style: 'top: 0px; left: 0px; z-index: 2', 'data-ls' => 'offsetxin:right;delayin:1000'
+
+.icons-bar
+  .row
+    .columns.small-12
+      .section-stats
+        .section-stat
+          = link_to '', groups_path
+          %i.icon-hex
+          %i.icon-moon-puzzle
+          .label 3DPDIA
+
+        .section-stat{ 'data-step' => 4, 'data-intro' => 'Explore 3D Labs' }
+          = link_to '', labs_path
+          %i.icon-hex
+          %i.icon-lab
+          .label
+            = Counter.labs
+            Labs
+
+        .section-stat
+          = link_to '', printers_products_path
+          %i.icon-hex
+          %i.icon-hardware
+          .label
+            = Counter.printers
+            3D Printers
+
+        .section-stat
+          = link_to '', guides_path
+          %i.icon-hex
+          %i.icon-guide
+          .label
+            = Counter.guides
+            News
+
+        .section-stat
+          = link_to '', resources_path
+          %i.icon-hex
+          %i.icon-moon-resource
+          .label
+            = Counter.resources
+            Resources
+
+        .section-stat
+          = link_to '', blogs_path
+          %i.icon-hex
+          %i.icon-blog
+          .label
+            = Counter.blog
+            Blog Posts
+
+        .section-stat
+          = link_to '', questions_path
+          %i.icon-hex
+          %i.icon-question
+          .label
+            = Counter.forum
+            in Forum
+
+        .section-stat{ 'data-step' => 1, 'data-intro' => 'Sign up now. Create your profile. Save labs, products and services' }
+          = link_to '', settings_path
+          %i.icon-hex
+          %i.icon-user_male3
+          .label
+            Your Profile
+
+.row
+  .columns.small-12
+    .mission-header 3D Printing for Everyone
+    .mission-body
+      Welcome to our information hub for the 3D Printing & Digital Fabrication Community.
+      %br
+      We invite Companies, Service Providers & Lab Managers to manage their own content.
+      %br
+      To manage your content on this site, email us at
+      = mail_to 'content@3DP4E.org', 'content@3DP4E.org', target: '_blank'
+      %br
+      %br
+      = render 'shared/access'
+
+.spacer_40
+
+%h2= link_to 'Featured 3D Labs', labs_path
+#owl.owl-carousel.owl-theme
+  - Lab.featured.each do |lab|
+    .item
+      = link_to '', lab
+      .title= lab.name
+      .overlay
+      = image_tag(lab.background.url(:feature))
+
+.owl-navigation
+  = link_to 'Previous', '', :class => 'owl-prev'
+  = link_to 'Next', '', :class => 'owl-next'
+
+.spacer_40
+
+.row
+  .columns.small-12
+    %h2.no-background= link_to 'News', guides_path
+
+.row= render Post.guides.featured.order('date_posted desc'), homepage: true

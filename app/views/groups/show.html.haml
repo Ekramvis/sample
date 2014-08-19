@@ -1,0 +1,51 @@
+- title "#{@group.name}"
+
+.categories
+  .wrap.category-grid
+    %div.clear-detail-banner
+      %div.detail-banner-wrap
+        %div.detail-banner
+          %h1= link_to "3DPDIA", groups_path
+          .headline.category-headline #{@group.name}
+  .no-touch
+    .wrap.category-grid
+      - @group.group_members.each do |member|
+        .box.category-detail
+          .boxInner.category-detail
+            - if member.is_a?(Post)
+              - if member.post_type == "blog"
+                = link_to blog_path(member) do
+                  %div.boxName.category-detail= "BLOG"
+                  - if member.thumbnail.present?
+                    = image_tag member.thumbnail.url(:grid)
+                  - elsif member.background.present?
+                    = image_tag member.background.url(:grid)
+                  %h3= member.title
+                  %p= member.date_posted.to_s(:pretty)
+              - elsif member.post_type == "guide"
+                = link_to guide_path(member) do
+                  %div.boxName.category-detail= "NEWS"
+                  - if member.thumbnail.present?
+                    = image_tag member.thumbnail.url(:grid)
+                  - elsif member.background.present?
+                    = image_tag member.background.url(:grid)
+                  %h3= member.title
+                  %p= member.date_posted.to_s(:pretty)
+              - elsif member.post_type == "resource"
+                = link_to resource_path(member) do
+                  %div.boxName.category-detail= "RESOURCE"
+                  - if member.thumbnail.present?
+                    = image_tag member.thumbnail.url(:grid)
+                  - elsif member.background.present?
+                    = image_tag member.background.url(:grid)
+                  %h3= member.title
+                  %p= member.date_posted.to_s(:pretty)
+.clear
+
+- if @group.questions.present?
+  .categories
+    .headline.category-forum FORUM - #{@group.name}
+    .no-touch
+      .wrap.category-forum
+        - @group.questions.each do |question|
+          = render partial: 'questions/question', object: question

@@ -1,0 +1,19 @@
+.columns.small-12.medium-6
+  .post-blurb
+    .row
+      .columns.small-3
+        = link_to image_tag(post.thumbnail_field.url(:thumb)), send("#{post.post_type}_path", post)
+      .columns.small-9
+        .title= link_to post.title, send("#{post.post_type}_path", post)
+        .meta
+          %em Posted on
+          = post.date_posted.to_s(:pretty)
+        - unless homepage ||= false
+          - post.groups.each do |group|
+            = link_to group_path(group) do
+              .tag=group.name
+        .blurb
+          = sir_trevor_paperclip_blurb(post.content)
+
+- if (post_counter + 1) % 2 == 0
+  .clear

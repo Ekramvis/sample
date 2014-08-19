@@ -1,0 +1,18 @@
+%h1 Category
+= link_to 'Edit', edit_admin_group_path(@group), :class => 'btn btn-gray pull-right'
+
+.key-value
+  .key Name
+  .value= @group.name
+
+.key-value
+  .key Thumbnail
+  .value
+    - if @group.grid.present?
+      = image_tag @group.grid.url(:small)
+    - else
+      Not Supplied
+
+.key-value
+  .key Public Page
+  .value= link_to 'Public Page', group_path(@group)

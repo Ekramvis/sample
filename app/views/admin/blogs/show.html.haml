@@ -1,0 +1,54 @@
+%h1 Blog
+= link_to 'Edit', edit_admin_blog_path(@blog), :class => 'btn btn-gray pull-right'
+
+.clear
+
+.key-value
+  .key Background
+  .value= image_tag @blog.background.url(:large)
+
+.key-value
+  .key Thumbnail
+  .value
+    - if @blog.thumbnail.present?
+      = image_tag @blog.thumbnail.url(:thumb)
+    - else
+      Not Supplied
+
+.key-value
+  .key Title
+  .value= @blog.title
+
+.key-value
+  .key Author
+  .value= @blog.user.name
+
+.key-value
+  .key Content
+  .value
+    .post= render_sir_trevor @blog.content
+
+.key-value
+  .key Attachments
+  .value
+    - if @blog.file_attachments.blank?
+      none
+    - else
+      .row 
+        - @blog.file_attachments.each do |file_attachment|         
+          .columns.small-3.medium-3.admin-view-attachment
+            = link_to file_attachment.attachment.url do
+              = image_tag file_attachment.doc_image, size: '75x75' 
+            .file-title= file_attachment.title
+        .spacer_10
+
+.key-value
+  .key Tags
+  - if @blog.groups.blank?
+    .value none
+  - else
+    .value= @blog.groups.map(&:name).join(", ")
+
+.key-value
+  .key Date Posted
+  .value= @blog.date_posted.to_s(:pretty)

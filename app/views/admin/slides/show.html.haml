@@ -1,0 +1,26 @@
+%h1 Slide
+= link_to 'Edit', edit_admin_slide_path(@slide), :class => 'btn btn-gray pull-right'
+
+.key-value
+  .key Title
+  .value= @slide.title
+
+.key-value
+  .key Description
+  .value= @slide.description
+
+.key-value
+  .key Background
+  .value= image_tag @slide.background.url(:small)
+
+.key-value
+  .key Link
+  .value= link_to url_for(@slide.link_url), url_for(@slide.link_url)
+
+.key-value
+  .key Duration
+  .value= "#{@slide.duration} ms"
+
+.key-value
+  .key Transition Speed
+  .value= "#{@slide.timeshift} ms"

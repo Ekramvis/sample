@@ -1,0 +1,50 @@
+- title @user.name
+
+.row
+  .columns.small-12
+    %h1 Profile
+
+.row
+  .columns.small-12.medium-6.medium-centered
+    .feature-block
+      .logo= image_tag @user.photo.url(:medium)
+      .item
+        %h3= @user.name
+        %h5= @user.organization
+        .roles
+          = @user.roles.map { |r| r.name.titleize }.join(', ')
+          - if current_user == @user
+            = link_to 'Edit', edit_roles_path
+
+        - if current_user == @user
+          .setting-block
+            Your email notifications are turned
+            %span{ :class => red_or_green(@user.receive_notifications?) }
+              = @user.receive_notifications? ? 'ON' : 'OFF'
+            %br
+          = link_to 'Edit', edit_user_path(@user), :class => 'btn btn-gray btn-mini pull-right'
+
+- if @user.questions.any?
+  .row
+    .columns.small-12
+      .spacer_40
+      %h2{ style: 'margin-bottom: 0' } Questions posted on Forum
+      = render partial: 'questions/table', locals: { :@questions => @user.questions, dynamic: false }
+
+- if @user.answers.any?
+  .row
+    .columns.small-12
+      .spacer_40
+      %h2{ style: 'margin-bottom: 0' } Answers posted on Forum
+      = render partial: 'questions/table', locals: { :@questions => Question.find(@user.answers.pluck(:question_id)), dynamic: false }
+
+- if @user == current_user
+  .row
+    .columns.small-12
+      - @user.favorites.order('favoritable_type asc').chunk { |f| f.favoritable_type }.each do |type, items|
+        .spacer_40
+        %h2
+          = type.titleize
+          Favorites
+
+        %div= render partial: "#{type.underscore.pluralize}/table", locals: { dynamic: false, :"@#{type.underscore.pluralize}" => items.map(&:favoritable) }

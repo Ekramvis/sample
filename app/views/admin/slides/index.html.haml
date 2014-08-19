@@ -1,0 +1,23 @@
+%h1 Slides
+= link_to "New", new_admin_slide_path, :class => 'btn btn-info pull-right'
+.clear
+
+%table.sortable-table{ 'data-url' => sort_admin_slides_path }
+  %thead
+    %tr
+      %th Order
+      %th Title
+      %th Created At
+      %th Actions
+
+  %tbody
+    - @slides.each do |slide|
+      %tr{ 'data-id' => slide.id }
+        %td
+          %i.fa.fa-arrows
+        %td= slide.title
+        %td= slide.created_at.to_s(:concise)
+        %td
+          = link_to 'Open', admin_slide_path(slide), :class => 'btn btn-table btn-mini'
+
+= paginate @slides

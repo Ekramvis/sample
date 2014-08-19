@@ -1,0 +1,54 @@
+%h1 Resource
+= link_to 'Edit', edit_admin_resource_path(@resource), :class => 'btn btn-gray pull-right'
+
+.clear
+
+.key-value
+  .key Background
+  .value= image_tag @resource.background.url(:large)
+
+.key-value
+  .key Thumbnail
+  .value
+    - if @resource.thumbnail.present?
+      = image_tag @resource.thumbnail.url(:thumb)
+    - else
+      Not Supplied
+
+.key-value
+  .key Title
+  .value= @resource.title
+
+.key-value
+  .key Author
+  .value= @resource.user.name
+
+.key-value
+  .key Content
+  .value
+    .post= render_sir_trevor @resource.content
+
+.key-value
+  .key Attachments
+  .value
+    - if @resource.file_attachments.blank?
+      none
+    - else
+      .row 
+        - @resource.file_attachments.each do |file_attachment|         
+          .columns.small-3.medium-3.admin-view-attachment
+            = link_to file_attachment.attachment.url do
+              = image_tag file_attachment.doc_image, size: '75x75' 
+            .file-title= file_attachment.title
+        .spacer_10
+
+.key-value
+  .key Tags
+  - if @resource.groups.blank?
+    .value none
+  - else
+    .value= @resource.groups.map(&:name).join(", ")
+
+.key-value
+  .key Date Posted
+  .value= @resource.date_posted.to_s(:pretty)

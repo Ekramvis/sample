@@ -1,0 +1,20 @@
+= simple_form_for [ :admin, @slide ] do |f|
+  .row
+    .columns.small-12
+      = f.input :title
+      = f.input :description
+      = f.label :background, 'Upload a BIG photo as the banner'
+      - if @slide.background.present?
+        = image_tag @slide.background.url
+      = f.input :background, label: false
+      .spacer_20
+
+      = f.label :link_url, "Link"
+      = f.input :link_url, label: false, placeholder: 'e.g. /resources/cool-article'
+      = f.label :duration, "Duration (ms)"
+      = f.input :duration, label: false
+      = f.label :timeshift, "Transition Speed (ms)"
+      = f.input :timeshift, label: false
+      = button_tag(type: 'submit', class: 'btn btn-success pull-right with-icon') do
+        = @slide.new_record? ? 'Create' : 'Update'
+        %i.fa.fa-angle-double-right

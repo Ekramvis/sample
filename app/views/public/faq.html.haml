@@ -1,0 +1,14 @@
+- title 'FAQ'
+
+.row
+  .columns.small-12
+    %h1 FAQ
+
+    %ul.questions
+      - @faqs.each do |faq|
+        %li= link_to faq.question, { anchor: faq.question.parameterize }
+
+    - @faqs.each do |faq|
+      .standard-text{ id: faq.question.parameterize }
+        .title= faq.question
+        = simple_format faq.answer

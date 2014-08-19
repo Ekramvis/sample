@@ -1,0 +1,24 @@
+%h1 Edit User
+
+.row
+  .columns.small-12.medium-9.medium-centered
+    = simple_form_for [ :admin, @user ] do |f|
+      = f.input :name
+      = f.input :email
+      = f.input :password
+      = f.input :password_confirmation, required: true
+      = f.error :password_digest
+      = f.input :organization, label: 'Your company or university'
+      = f.input :knowledge_level, collection: User::KNOWLEDGE_LEVELS, label: '3D Knowledge Level', label_method: lambda { |a| a.titleize }
+      = f.input :is_admin, label: 'Is an Administrator?'
+      = f.input :state, collection: User::STATES, include_blank: false
+      = f.input :photo
+      = f.input :building_lab_time_frame, collection: User::TIME_FRAMES, label: 'What is your time frame for building a 3D printing lab?'
+
+      .spacer_20
+      %h2 Roles
+      = f.association :roles, as: :check_boxes, label: false, label_method: lambda { |role| RolePresenter.new(role).render }
+
+      = button_tag(type: 'submit', class: 'btn btn-success pull-right with-icon') do
+        Update
+        %i.fa.fa-angle-double-right

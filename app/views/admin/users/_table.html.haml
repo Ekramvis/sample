@@ -1,0 +1,18 @@
+%table
+  %thead
+    %tr
+      %th= sortable 'name'
+      %th= sortable 'email'
+      %th= sortable 'created_at', 'Joined'
+      %th Actions
+
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.name
+        %td= user.email
+        %td= user.created_at.to_s(:concise)
+        %td
+          = link_to 'Open', admin_user_path(user), :class => 'btn btn-table btn-mini'
+
+= paginate @users

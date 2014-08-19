@@ -1,0 +1,12 @@
+- title 'Posters'
+
+.categories
+  .headline Posters
+  .no-touch
+    .wrap
+      - @posters.each do |poster|
+        .box
+          .boxInner
+            = link_to poster_path(poster) do
+              %div.boxName= poster.title
+              %img(src="#{poster.thumbnail.url(:grid)}")

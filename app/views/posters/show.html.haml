@@ -1,0 +1,29 @@
+- title "Poster Art - #{@poster.title}"
+
+.poster
+  .row
+    .poster-title
+      = "Poster Art - #{@poster.title}"
+  .row
+    .poster-sections
+      - @poster.poster_sections.each do |section|
+        .section-title= section.title
+        .row
+          .columns.small-12.medium-4
+            .section-image
+              = image_tag section.image.url(:large)
+          .columns.small-12.medium-8
+            .section-description
+              = section.description
+            .row
+              .columns.small-12.medium-6
+                HERE ARE TAGS
+              .columns.small-12.medium-6
+                .section-video-link
+                  %iframe{width: "315", height: "315", src: "//www.youtube.com/embed/#{section.video_link}", frameborder: "0", allowfullscreen: true}
+              .columns.small-12.medium-12 
+                .section-page-link
+                  = section.page_link
+        .section-divider
+   
+     

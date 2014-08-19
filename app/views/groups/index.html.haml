@@ -1,0 +1,12 @@
+- title 'Categories'
+
+.categories
+  .headline 3DPDIA - The World of 3D Printing & Digital Fabrication
+  .no-touch
+    .wrap
+      - @groups.each do |group|
+        .box
+          .boxInner
+            = link_to group_path(group) do
+              %div.boxName= group.name
+              %img(src="#{group.grid.url(:small)}")

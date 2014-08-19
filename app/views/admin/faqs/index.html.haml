@@ -1,0 +1,23 @@
+%h1 FAQs
+= link_to 'New', new_admin_faq_path, :class => 'btn btn-info pull-right'
+.clear
+
+%table.sortable-table{ 'data-url' => sort_admin_faqs_path }
+  %thead
+    %tr
+      %th Order
+      %th Question
+      %th Created At
+      %th Actions
+
+  %tbody
+    - @faqs.each do |faq|
+      %tr{ 'data-id' => faq.id }
+        %td
+          %i.fa.fa-arrows
+        %td= faq.question
+        %td= faq.created_at.to_s(:concise)
+        %td
+          = link_to 'Open', admin_faq_path(faq), :class => 'btn btn-table btn-mini'
+
+= paginate @faqs

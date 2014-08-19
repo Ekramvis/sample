@@ -1,0 +1,14 @@
+.post-favorite
+  .content
+    .title= link_to post.title, send("#{post.post_type}_path", post)
+    .author
+      = time_ago_in_words(post.date_posted)
+      ago by
+      = post.user.name
+    .tags
+      - post.groups.each do |group|
+        = link_to group_path(group) do
+          %span.tag=group.name
+
+  - if current_user
+    .show-for-medium-up.favorite{ favorite_attributes_for(post) }

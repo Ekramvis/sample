@@ -1,0 +1,45 @@
+- title 'Search'
+
+.row
+  .columns.small-12
+    %h1 Search
+    .center
+      %p
+        - if @results.count.zero?
+          No results found for your search.
+        - else
+          = @results.count
+          results found for <em>#{ @results.query }</em>.
+
+    - %w( companies service_providers labs ).each do |type|
+      - if @results.send(type).any?
+        .spacer_40
+        %h2= type.titleize
+        = render partial: "#{type}/table", locals: { :"@#{type}" => @results.send(type), :dynamic => false }
+
+    - %w( printers scanners machines software supplies ).each do |type|
+      - if @results.send(type).any?
+        .spacer_40
+        %h2= type.titleize
+        = render partial: 'products/table', locals: { :@products => @results.send(type), :dynamic => false }
+
+    - if @results.questions.any?
+      .spacer_40
+      %h2 Forum
+      %div= render partial: 'questions/table',  locals: { :@questions => @results.questions, dynamic: false }
+
+    - if @results.guides.any?
+      .spacer_40
+      %h2 News
+      .row= render @results.guides
+
+    - if @results.blogs.any?
+      .spacer_40
+      %h2 Blogs
+      .row= render @results.blogs
+
+    - if @results.resources.any?
+      .spacer_40
+      %h2 Resources
+      .row= render @results.resources
+

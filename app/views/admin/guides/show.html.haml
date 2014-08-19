@@ -1,0 +1,58 @@
+%h1 Guide
+= link_to 'Edit', edit_admin_guide_path(@guide), :class => 'btn btn-gray pull-right'
+
+.clear
+
+.key-value
+  .key Background
+  .value= image_tag @guide.background.url(:large)
+
+.key-value
+  .key Thumbnail
+  .value
+    - if @guide.thumbnail.present?
+      = image_tag @guide.thumbnail.url(:thumb)
+    - else
+      Not Supplied
+
+.key-value
+  .key Title
+  .value= @guide.title
+
+.key-value
+  .key Featured on Front Page?
+  .value= yes_or_no @guide.is_featured?
+
+.key-value
+  .key Author
+  .value= @guide.user.name
+
+.key-value
+  .key Content
+  .value
+    .post= render_sir_trevor @guide.content
+
+.key-value
+  .key Attachments
+  .value
+    - if @guide.file_attachments.blank?
+      none
+    - else 
+      .row 
+        - @guide.file_attachments.each do |file_attachment|         
+          .columns.small-3.medium-3.admin-view-attachment
+            = link_to file_attachment.attachment.url do
+              = image_tag file_attachment.doc_image, size: '75x75' 
+            .file-title= file_attachment.title
+        .spacer_10
+
+.key-value
+  .key Tags
+  - if @guide.groups.blank?
+    .value none
+  - else
+    .value= @guide.groups.map(&:name).join(", ")
+
+.key-value
+  .key Date Posted
+  .value= @guide.date_posted.to_s(:pretty)

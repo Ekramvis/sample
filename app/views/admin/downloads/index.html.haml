@@ -1,0 +1,18 @@
+%h1 Downloads
+= link_to "New", new_admin_download_path, :class => 'btn btn-info pull-right'
+.clear
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th Actions
+
+  %tbody
+    - @downloads.each do |download|
+      %tr
+        %td= download.file_attachment.title
+        %td
+          = link_to 'Open', admin_download_path(download), :class => 'btn btn-table btn-mini pull-right'
+
+= paginate @downloads

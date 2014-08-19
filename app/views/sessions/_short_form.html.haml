@@ -1,0 +1,26 @@
+.columns.small-12
+  %h1 Login
+
+.columns.small-12
+  .spacer_20
+  .spacer_10
+  .gmail-login
+    = link_to '/auth/google_oauth2' do
+      %button.btn.btn-gmail GMAIL
+
+  .fab-login
+    = link_to '/auth/facebook' do
+      %button.btn.btn-fab FACEBOOK
+
+  .linkedin-login
+    = link_to '/auth/linkedin' do
+      %button.btn.btn-linkedin LINKEDIN
+  .clear.spacer_20
+
+.columns.small-12
+  = simple_form_for :session, url: download_login_path do |f|
+    = f.input :email
+    = f.input :password
+    = button_tag(type: 'submit', class: 'btn btn-success pull-right with-icon') do
+      Login
+      %i.fa.fa-angle-double-right

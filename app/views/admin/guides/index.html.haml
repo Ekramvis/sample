@@ -1,0 +1,27 @@
+%h1 News
+= link_to 'New', new_admin_guide_path, :class => 'btn btn-info pull-right'
+.clear
+
+%table
+  %thead
+    %tr
+      %th= sortable 'date_posted', 'Published On'
+      %th Featured?
+      %th= sortable 'title'
+      %th Author
+      %th Actions
+
+  %tbody
+    - @guides.each do |guide|
+      %tr
+        %td= guide.date_posted.to_s(:concise)
+        %td 
+          = simple_form_for([:admin, guide], remote: true, url: admin_guide_path(guide), html: {id: "is-featured-#{guide.id}", class: "is_featured_change"}) do |f|
+            = f.input :is_featured, label: "Featured", as: :boolean, input_html: {checked: guide.is_featured}
+            = f.submit style: "display: none;"
+        %td= guide.title
+        %td= guide.user.name
+        %td
+          = link_to 'Open', admin_guide_path(guide), :class => 'btn btn-table btn-mini'
+
+= paginate @guides

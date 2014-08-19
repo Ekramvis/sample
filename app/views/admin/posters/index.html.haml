@@ -1,0 +1,18 @@
+%h1 Posters
+= link_to "New", new_admin_poster_path, :class => 'btn btn-info pull-right'
+.clear
+
+%table
+  %thead
+    %tr
+      %th= sortable 'title'
+      %th Actions
+
+  %tbody
+    - @posters.each do |poster|
+      %tr
+        %td= poster.title
+        %td
+          = link_to 'Open', admin_poster_path(poster), :class => 'btn btn-table btn-mini'
+
+= paginate @posters

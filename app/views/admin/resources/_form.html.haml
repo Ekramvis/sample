@@ -1,0 +1,36 @@
+= simple_form_for [:admin, @resource], url: (@resource.new_record? ? admin_resources_path : admin_resource_path(@resource)) do |f|
+  = f.input :title
+  = f.label :thumbnail, 'Add a square thumbnail'
+  - if @resource.thumbnail.present?
+    = image_tag @resource.thumbnail.url(:thumb)
+  = f.input :thumbnail, label: false
+  .spacer_20
+  = f.label :background, 'Upload a BIG photo as the banner'
+  - if @resource.background.present?
+    = image_tag @resource.background.url(:thumb)
+  = f.input :background, label: false
+
+  .spacer_20
+  %h2 Content
+  = f.input :content, input_html: { :class => 'js-st-instance' }
+   
+  .spacer_20
+  = render partial: 'admin/file_attachments/form', locals: {f: f}
+
+  .spacer_20
+  %label(for='post_group_ids') Tags
+  %select(multiple='multiple' name="post[group_ids][]" id="post_group_ids" class="admin-tag-select" style="width:100%; border:.15em solid #2c343b; padding:5px; height:55px; vertical-align:middle;'")
+    - Group.all.each do |group|
+      %option{value: group.id}= group.name
+
+  %input(type="hidden" name="post[group_ids][]" value="")
+
+  .spacer_20
+    = f.input :date_posted, label: 'Posted On', as: :date, value: @resource.try(:date_posted) || Date.today, order: [:month, :day, :year]
+
+  .spacer_20
+  = button_tag(type: 'submit', class: 'btn btn-success pull-right with-icon') do
+    Publish
+    %i.fa.fa-edit
+
+.clear

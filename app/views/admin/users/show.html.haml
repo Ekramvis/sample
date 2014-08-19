@@ -1,0 +1,51 @@
+%h1 User
+
+= link_to 'Impersonate', impersonate_admin_user_path(@user), :class => 'btn btn-gray pull-right', data: { confirm: "Are you sure you want to impersonate #{@user.name}?" }
+= link_to 'Edit', edit_admin_user_path(@user), :class => 'btn btn-gray pull-right'
+
+
+.key-value
+  .key State
+  .value{ :class => (@user.state == 'active' ? 'green' : 'red') }= @user.state.titleize
+
+- %w( name email organization ).each do |key|
+  .key-value
+    .key= key.titleize
+    .value= maybe @user.send(key)
+
+.key-value
+  .key Knowledge Level
+  .value= maybe @user.knowledge_level, titleize: true
+
+.key-value
+  .key Photo
+  .value
+    - if @user.photo.present?
+      = image_tag @user.photo.url(:medium)
+    - else
+      (Not Supplied)
+
+.key-value
+  .key Is an Administrator?
+  .value= yes_or_no @user.is_admin
+
+.key-value
+  .key Profile Page
+  .value= link_to 'Profile Page', user_path(@user), target: '_blank'
+
+.key-value
+  .key Roles
+  .value
+    - if @user.roles.none?
+      (Not Supplied)
+    - else
+      %ul
+        - @user.roles.each do |role|
+          %li
+            = role.name.titleize
+            %br
+            .small= role.description
+
+.key-value
+  .key Wants to Build Lab In
+  .value= maybe @user.metadata[:building_lab_time_frame]

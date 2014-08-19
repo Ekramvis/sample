@@ -1,0 +1,32 @@
+= f.label :file_attachments, "Attached Files"
+.spacer_10
+= f.simple_fields_for :file_attachments do |p|
+  .duplicatable_nested_form{ 'data-duplicate-id' => 'file-attachment-form' }
+    .row 
+      - if p.object && p.object.persisted? && p.object.attachment
+        .attached-file
+          .columns.small-3.medium-3
+            = link_to p.object.attachment.url do
+              = image_tag p.object.doc_image, size: '75x75'
+          .columns.small-6.medium-6#doc-attachment-title
+            = p.input :title, value: p.object.title        
+          .columns.small-3.medium-3 
+            = link_to 'Remove', '', :class => 'btn btn-mini btn-danger destroy_duplicate_nested_form existing-attachment'
+            = p.input :_destroy, as: :hidden, input_html: { value: 0 } 
+        .spacer_10
+        
+      - else 
+        .columns.small-6.medium-6
+          = p.input :title
+        .columns.small-6.medium-6 
+          = link_to 'Remove', '', :class => 'btn btn-mini btn-danger destroy_duplicate_nested_form attachment-remove'
+          - if !p.object.new_record?
+            = p.input :_destroy, as: :hidden, input_html: { value: 0 } 
+        .columns.small-12.medium-12
+          = p.file_field :attachment, required: false
+        .spacer_10
+      
+.spacer_10
+.row
+  .columns.small-12= link_to 'Add', '', :class => 'btn btn-mini btn-info duplicate_nested_form', 'data-duplicate-id' => 'file-attachment-form'
+

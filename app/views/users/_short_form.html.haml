@@ -1,0 +1,13 @@
+.columns.small-12
+  %h1 Sign Up
+
+.columns.small-12
+  = simple_form_for (@user ||= User.new), url: :download_signup do |f|
+    = f.input :name
+    = f.input :email
+    = f.input :password
+    = f.input :password_confirmation, required: true
+    = f.error :password_digest
+    = button_tag(type: 'submit', class: 'btn btn-success pull-right with-icon') do
+      = @user.new_record? ? 'Sign Up' : 'Update'
+      %i.fa.fa-angle-double-right
